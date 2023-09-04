@@ -1,0 +1,10 @@
+<div class="dropdown">
+    <input type="text" class="dropbtn" [formControl]="entryControl"
+           [placeholder]="placeholder" >
+    <div class="dropdown-content" *ngIf="filteredEntries$ | async as entries" role="menu">
+        <span *ngFor="let entry of entries; let index = index" (click)="newSelection(entry)" 
+              [innerHTML]="entry.name | highlight: entryControl.value ?? ''" >
+        </span>
+    </div>
+  </div>
+  

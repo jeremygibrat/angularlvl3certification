@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-11">
+    <app-autofilter-dropdown #category [entries$]="mainCategories$" (selectionChange)="initSubCategory($event?.id)"
+      placeholder="Enter your category">
+    </app-autofilter-dropdown>
+
+    <ng-container *ngIf="(subCategories$ | async) as result">
+      <app-autofilter-dropdown *ngIf="result.length > 0" [entries$]="subCategories$"
+        (selectionChange)="selectedSubCategory = $event?.id" placeholder="Enter your sub category">
+      </app-autofilter-dropdown>
+    </ng-container>
+
+    <select #difficulty id="difficultySelect">
+      <option value="" disabled selected>Select difficulty</option>
+      <option>Easy</option>
+      <option>Medium</option>
+      <option>Hard</option>
+    </select>
+    <button class="primary" id="createBtn" (click)="createQuiz(difficulty.value)">Create</button>
+  </div>
+
+</div>
+<div class="row">
+  <app-quiz [questions]="questions$ | async" [altQuestions]="altQuestions$ | async" (replaceQuestion)="canChangeQuestion = false" [canChangeQuestion]="canChangeQuestion"></app-quiz>
+</div>
